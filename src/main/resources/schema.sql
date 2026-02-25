@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS attendance_records (
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS attendance_records (
     clock_in_time TIMESTAMP NOT NULL,
     clock_out_time TIMESTAMP NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'IN_PROGRESS',
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     UNIQUE (user_id, record_date)
 );
