@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>勤怠登録</title>
+    <style>
+        .button-area {
+            display: flex;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-area">
+        <form th:action="@{/attendance/clock-in}" method="post">
+            <input type="hidden" name="userId" value="123">
+            <button type="submit">出勤</button>
+        </form>
+        <form th:action="@{/attendance/clock-out}" method="post">
+            <input type="hidden" name="userId" value="123">
+            <button type="submit">退勤</button>
+        </form>
+    </div>
+</body>
+</html>
