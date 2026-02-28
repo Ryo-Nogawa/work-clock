@@ -17,7 +17,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public void register(String email, String passwordHash, String name) {
         Users user = new Users(email, passwordHash, name);
-        jdbcTemplate.update("INSERT INTO users VALUES (?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO users (email, password_hash, name, updated_at, created_at) VALUES (?,?,?,?,?)",
                 user.getEmail(),
                 user.getPasswordHash(),
                 user.getName(),
