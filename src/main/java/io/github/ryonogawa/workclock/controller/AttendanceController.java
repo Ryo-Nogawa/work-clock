@@ -20,7 +20,6 @@ public class AttendanceController {
     }
 
     @PostMapping("/clock-in")
-    @Transactional
     public String clockInRegistration(@RequestParam long userId, Model model) {
         service.clockIn(userId);
         model.addAttribute("attendance_kind", "出勤");
@@ -28,7 +27,6 @@ public class AttendanceController {
     }
 
     @PostMapping("/clock-out")
-    @Transactional
     public String clockOutRegistration(@RequestParam long userId, Model model) {
         service.clockOut(userId);
         model.addAttribute("attendance_kind", "退勤");

@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.github.ryonogawa.workclock.entity.AttendanceRecords;
 import io.github.ryonogawa.workclock.repository.AttendanceRecordsRepository;
 
 @Service
+@Transactional
 public class AttendanceServiceImpl implements AttendanceService {
 
     private final AttendanceRecordsRepository repository;
