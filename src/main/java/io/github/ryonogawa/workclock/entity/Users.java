@@ -31,7 +31,7 @@ public class Users {
     @Column("created_at")
     private LocalDateTime createdAt;
 
-    public Users(long id, String email, String passwordHash, String name) {
+    public Users(String email, String passwordHash, String name) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.name = name;
