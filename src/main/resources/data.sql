@@ -1,0 +1,1 @@
+INSERT INTO users (email, password_hash, name, updated_at, created_at) VALUES ('test@example.com', '7a39f3737bd5f83d1e62cf6e26d5a7ec4f2d14d392ea177b71904dccf3c0744b', 'dummy', now(), now())
