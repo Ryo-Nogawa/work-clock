@@ -14,7 +14,7 @@ public class Users {
 
     @Id
     @Column("id")
-    private long id;
+    private Long id;
 
     @Column("email")
     private String email;

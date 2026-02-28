@@ -8,14 +8,16 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import lombok.Getter;
+import lombok.With;
 
 @Table("attendance_records")
 @Getter
+@With
 public class AttendanceRecords {
 
     @Id
     @Column("id")
-    private long id;
+    private Long id;
 
     @Column("user_id")
     private long userId;
@@ -38,16 +40,7 @@ public class AttendanceRecords {
     @Column("created_at")
     private LocalDateTime createdAt;
 
-    public AttendanceRecords(long userId) {
-        this.userId = userId;
-        this.recordDate = LocalDate.now();
-        this.clockInTime = LocalDateTime.now();
-        this.status = "IN_PROGRESS";
-        this.updatedAt = LocalDateTime.now();
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public AttendanceRecords(long id, long userId, LocalDate recordDate, LocalDateTime clockInTime,
+    public AttendanceRecords(Long id, long userId, LocalDate recordDate, LocalDateTime clockInTime,
             LocalDateTime clockOutTime, String status, LocalDateTime updatedAt, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
@@ -59,4 +52,8 @@ public class AttendanceRecords {
         this.createdAt = createdAt;
     }
 
+    public static AttendanceRecords forClockIn(long userId) {
+        return new AttendanceRecords(null, userId, LocalDate.now(), LocalDateTime.now(),
+                null, "IN_PROGRESS", LocalDateTime.now(), LocalDateTime.now());
+    }
 }

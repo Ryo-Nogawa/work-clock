@@ -1,10 +1,12 @@
 package io.github.ryonogawa.workclock.repository;
 
-public interface UsersRepository {
-    // 新規ユーザー登録
-    public void register(String email, String passwordHash, String name);
+import java.util.Optional;
 
-    // userId取得
-    public Long getUserId(String email);
+import org.springframework.data.repository.ListCrudRepository;
 
+import io.github.ryonogawa.workclock.entity.Users;
+
+public interface UsersRepository extends ListCrudRepository<Users, Long> {
+
+    Optional<Users> findByEmail(String email);
 }

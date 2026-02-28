@@ -1,17 +1,13 @@
 package io.github.ryonogawa.workclock.repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.data.repository.ListCrudRepository;
 
 import io.github.ryonogawa.workclock.entity.AttendanceRecords;
 
-public interface AttendanceRecordsRepository {
-    // 出勤登録
-    public void clockIn(long userId);
+public interface AttendanceRecordsRepository extends ListCrudRepository<AttendanceRecords, Long> {
 
-    // 退勤登録
-    public int clockOut(long id, LocalDateTime clockOutTime, String status, LocalDateTime updatedAt);
-
-    // 勤怠情報取得
-    public AttendanceRecords getAttendanceInfo(long userId, LocalDate recordDate);
+    Optional<AttendanceRecords> findByUserIdAndRecordDate(long userId, LocalDate recordDate);
 }

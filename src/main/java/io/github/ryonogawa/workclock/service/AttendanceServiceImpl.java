@@ -20,28 +20,23 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public void clockIn(long userId) {
         validateUserId(userId);
-        repository.clockIn(userId);
+        repository.save(AttendanceRecords.forClockIn(userId));
     }
 
     @Override
     public void clockOut(long userId) {
         validateUserId(userId);
 
-        // 出勤記録の取得
-        LocalDate today = LocalDate.now();
-        AttendanceRecords record = repository.getAttendanceInfo(userId, today);
+        AttendanceRecords record = repository.findByUserIdAndRecordDate(userId, LocalDate.now())
+                .orElse(null);
 
         if (record == null) {
             System.out.println("本日の出勤記録がありません");
+            return;
         }
 
-        // 退勤登録
         LocalDateTime now = LocalDateTime.now();
-        int clockOutResult = repository.clockOut(record.getId(), now, "COMPLETED", now);
-
-        if (clockOutResult == 0) {
-            System.out.println("退勤記録が正常に登録できませんでした");
-        }
+        repository.save(record.withClockOutTime(now).withStatus("COMPLETED").withUpdatedAt(now));
     }
 
     private void validateUserId(long userId) {
