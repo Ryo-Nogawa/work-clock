@@ -1,5 +1,8 @@
 package io.github.ryonogawa.workclock.repository;
 
+import java.time.LocalDate;
+
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +28,14 @@ public class AttendanceRecordsRepositoryImpl implements AttendanceRecordsReposit
                 clockInRecord.getStatus(),
                 clockInRecord.getUpdatedAt(),
                 clockInRecord.getCreatedAt());
+    }
+
+    @Override
+    public AttendanceRecords getAttendanceInfo(long userId, LocalDate recordDate) {
+        AttendanceRecords record = jdbcTemplate.queryForObject(
+                "SELECT id, user_id, record_date, clock_in_time, clock_out_time, status, updated_at, created_at FROM attendance_records WHERE user_id=? AND record_date=?",
+                new DataClassRowMapper<>(AttendanceRecords.class), userId, recordDate);
+        return record;
+
     }
 }

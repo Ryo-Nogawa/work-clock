@@ -47,4 +47,16 @@ public class AttendanceRecords {
         this.createdAt = LocalDateTime.now();
     }
 
+    public AttendanceRecords(long id, long userId, LocalDate recordDate, LocalDateTime clockInTime,
+            LocalDateTime clockOutTime, String status, LocalDateTime updatedAt, LocalDateTime createdAt) {
+        this.id = id;
+        this.userId = userId;
+        this.recordDate = recordDate;
+        this.clockInTime = clockInTime;
+        this.clockOutTime = clockOutTime;
+        this.status = status;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
 }
