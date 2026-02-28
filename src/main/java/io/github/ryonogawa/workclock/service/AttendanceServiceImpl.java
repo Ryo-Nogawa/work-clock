@@ -24,7 +24,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public void clockOut(long userId) throws Exception {
+    public void clockOut(long userId) {
         validateUserId(userId);
 
         // 出勤記録の取得
@@ -32,7 +32,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         AttendanceRecords record = repository.getAttendanceInfo(userId, today);
 
         if (record == null) {
-            throw new Exception("本日の出勤記録がありません");
+            System.out.println("本日の出勤記録がありません");
         }
 
         // 退勤登録
@@ -40,7 +40,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         int clockOutResult = repository.clockOut(record.getId(), now, "COMPLETED", now);
 
         if (clockOutResult == 0) {
-            throw new Exception("退勤記録が正常に登録できませんでした");
+            System.out.println("退勤記録が正常に登録できませんでした");
         }
     }
 

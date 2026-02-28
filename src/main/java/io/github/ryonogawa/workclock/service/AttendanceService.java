@@ -5,5 +5,5 @@ public interface AttendanceService {
     public void clockIn(long userId);
 
     // 退勤登録
-    public void clockOut(long userId) throws Exception;
+    public void clockOut(long userId);
 }

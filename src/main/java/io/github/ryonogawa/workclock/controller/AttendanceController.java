@@ -30,11 +30,7 @@ public class AttendanceController {
     @PostMapping("/clock-out")
     @Transactional
     public String clockOutRegistration(@RequestParam long userId, Model model) {
-        try {
-            service.clockOut(userId);
-        } catch (Exception e) {
-            System.out.println("退勤処理が異常終了しました");
-        }
+        service.clockOut(userId);
         model.addAttribute("attendance_kind", "退勤");
         return "complete";
     }
