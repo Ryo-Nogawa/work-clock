@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS attendance_records (
     user_id BIGINT NOT NULL REFERENCES users(id),
     record_date DATE NOT NULL,
     clock_in_time TIMESTAMP NOT NULL,
-    clock_out_time TIMESTAMP NOT NULL,
+    clock_out_time TIMESTAMP,
     status VARCHAR(20) NOT NULL DEFAULT 'IN_PROGRESS',
     updated_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL,
