@@ -1,7 +1,11 @@
 package io.github.ryonogawa.workclock.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
+import io.github.ryonogawa.workclock.entity.AttendanceRecords;
 import io.github.ryonogawa.workclock.repository.AttendanceRecordsRepository;
 
 @Service
@@ -17,6 +21,27 @@ public class AttendanceServiceImpl implements AttendanceService {
     public void clockIn(long userId) {
         validateUserId(userId);
         repository.clockIn(userId);
+    }
+
+    @Override
+    public void clockOut(long userId) throws Exception {
+        validateUserId(userId);
+
+        // 出勤記録の取得
+        LocalDate today = LocalDate.now();
+        AttendanceRecords record = repository.getAttendanceInfo(userId, today);
+
+        if (record == null) {
+            throw new Exception("本日の出勤記録がありません");
+        }
+
+        // 退勤登録
+        LocalDateTime now = LocalDateTime.now();
+        int clockOutResult = repository.clockOut(record.getId(), now, "COMPLETED", now);
+
+        if (clockOutResult == 0) {
+            throw new Exception("退勤記録が正常に登録できませんでした");
+        }
     }
 
     private void validateUserId(long userId) {
