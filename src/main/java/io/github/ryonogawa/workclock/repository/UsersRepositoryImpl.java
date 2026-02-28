@@ -24,4 +24,10 @@ public class UsersRepositoryImpl implements UsersRepository {
                 user.getUpdatedAt(),
                 user.getCreatedAt());
     }
+
+    @Override
+    public Long getUserId(String email) {
+        Long userId = jdbcTemplate.queryForObject("SELECT id FROM users WHERE email=?", Long.class, email);
+        return userId;
+    }
 }
