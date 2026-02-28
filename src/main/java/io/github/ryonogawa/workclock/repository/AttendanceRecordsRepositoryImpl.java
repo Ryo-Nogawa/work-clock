@@ -1,6 +1,7 @@
 package io.github.ryonogawa.workclock.repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,13 +22,21 @@ public class AttendanceRecordsRepositoryImpl implements AttendanceRecordsReposit
     public void clockIn(long userId) {
         AttendanceRecords clockInRecord = new AttendanceRecords(userId);
         jdbcTemplate.update(
-                "INSERT INTO attendance_records  (user_id, record_date, clock_in_time, status, updated_at, created_at) VALUES (?,?,?,?,?,?)",
+                "INSERT INTO attendance_records (user_id, record_date, clock_in_time, status, updated_at, created_at) VALUES (?,?,?,?,?,?)",
                 clockInRecord.getUserId(),
                 clockInRecord.getRecordDate(),
                 clockInRecord.getClockInTime(),
                 clockInRecord.getStatus(),
                 clockInRecord.getUpdatedAt(),
                 clockInRecord.getCreatedAt());
+    }
+
+    @Override
+    public int clockOut(long id, LocalDateTime clockOutTime, String status, LocalDateTime updatedAt) {
+        int count = jdbcTemplate.update(
+                "UPDATE attendance_records SET clock_out_time=?, status=?, updated_at=? WHERE id=?",
+                clockOutTime, status, updatedAt, id);
+        return count;
     }
 
     @Override
